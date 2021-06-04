@@ -6,6 +6,11 @@ pub struct Cli {
 	#[structopt(subcommand)]
 	pub subcommand: Option<Subcommand>,
 
+	#[structopt(long)]
+	pub noise_port: Option<String>,
+	#[structopt(long)]
+	pub noise_bootstrap: Option<String>,
+
 	#[structopt(flatten)]
 	pub run: RunCmd,
 }

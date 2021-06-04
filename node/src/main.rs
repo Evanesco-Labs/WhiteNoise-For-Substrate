@@ -7,7 +7,9 @@ mod service;
 mod cli;
 mod command;
 mod rpc;
+mod noise_rpc_api;
 
-fn main() -> sc_cli::Result<()> {
-	command::run()
+#[async_std::main]
+async fn main() -> sc_cli::Result<()> {
+    command::run()
 }

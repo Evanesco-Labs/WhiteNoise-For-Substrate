@@ -13,6 +13,7 @@ use sp_blockchain::{Error as BlockChainError, HeaderMetadata, HeaderBackend};
 use sp_block_builder::BlockBuilder;
 pub use sc_rpc_api::DenyUnsafe;
 use sp_transaction_pool::TransactionPool;
+use whitenoisers::network::node::Node;
 
 
 /// Full client dependencies.
@@ -27,7 +28,7 @@ pub struct FullDeps<C, P> {
 
 /// Instantiate all full RPC extensions.
 pub fn create_full<C, P>(
-	deps: FullDeps<C, P>,
+	deps: FullDeps<C, P>,node: Node
 ) -> jsonrpc_core::IoHandler<sc_rpc::Metadata> where
 	C: ProvideRuntimeApi<Block>,
 	C: HeaderBackend<Block> + HeaderMetadata<Block, Error=BlockChainError> + 'static,
@@ -53,6 +54,9 @@ pub fn create_full<C, P>(
 
 	io.extend_with(
 		TransactionPaymentApi::to_delegate(TransactionPayment::new(client.clone()))
+	);
+	io.extend_with(
+		crate::noise_rpc_api::NoiseRpcApi::to_delegate(crate::noise_rpc_api::NoiseRpc{node: node})
 	);
 
 	// Extend this RPC with a custom API by using the following syntax.

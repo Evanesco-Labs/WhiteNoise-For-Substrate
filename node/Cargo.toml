@@ -22,6 +22,13 @@ substrate-build-script-utils = {version = '3.0.0', git = 'https://github.com/par
 jsonrpc-core = '15.1.0'
 structopt = '0.3.8'
 
+async-std = {version= "1.6.5",features = ["attributes"]}
+log = "0.4"
+jsonrpc-core-client = "15.1.0"
+jsonrpc-derive = "15.1.0"
+libp2p = {version = "0.37.1"}
+futures = {version = "0.3"}
+whitenoisers = {path = "../../WhiteNoise.rs"}
 # Substrate dependencies
 frame-benchmarking = {version = '3.1.0', git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-05'}
 frame-benchmarking-cli = {version = '3.0.0', git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-05'}
