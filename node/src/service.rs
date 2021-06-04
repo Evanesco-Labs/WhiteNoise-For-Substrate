@@ -14,6 +14,8 @@ use sc_finality_grandpa::SharedVoterState;
 use sc_keystore::LocalKeystore;
 use sc_telemetry::{Telemetry, TelemetryWorker};
 
+use whitenoisers::network::node::Node;
+
 // Our native executor instance.
 native_executor_instance!(
 	pub Executor,
@@ -126,7 +128,7 @@ fn remote_keystore(_url: &String) -> Result<Arc<LocalKeystore>, &'static str> {
 }
 
 /// Builds a new service for a full client.
-pub fn new_full(mut config: Configuration) -> Result<TaskManager, ServiceError> {
+pub fn new_full(mut config: Configuration,node: Node) -> Result<TaskManager, ServiceError> {
 	let sc_service::PartialComponents {
 		client,
 		backend,
@@ -178,6 +180,7 @@ pub fn new_full(mut config: Configuration) -> Result<TaskManager, ServiceError> 
 	let rpc_extensions_builder = {
 		let client = client.clone();
 		let pool = transaction_pool.clone();
+		let node = node.clone();
 
 		Box::new(move |deny_unsafe, _| {
 			let deps = crate::rpc::FullDeps {
@@ -185,8 +188,8 @@ pub fn new_full(mut config: Configuration) -> Result<TaskManager, ServiceError> 
 				pool: pool.clone(),
 				deny_unsafe,
 			};
-
-			crate::rpc::create_full(deps)
+			let node = node.clone();
+			crate::rpc::create_full(deps,node)
 		})
 	};
 
