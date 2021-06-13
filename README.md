@@ -102,7 +102,7 @@ Start other nodes in the same way ...
 
 ### Join WhiteNoise Network
 
-Get official testnet bootstrap node [Address](). 
+Get official testnet bootstrap node [Address](./.testnet-boot.md). 
 For example `/ip4/118.190.124.88/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp`.
 
 Start a relay node to join this remote testnet:
