@@ -99,19 +99,19 @@ Start other nodes in the same way ...
 --noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
 ```
 
-### Test Example
+## Test Example
 The WhiteNoise Network built with substrate-node-template can provide WhiteNoise privacy network services. 
 [WhiteNoise Clients](https://github.com/Evanesco-Labs/WhiteNoise-client.rs) are able to access this network and build private and secure connection through this network.
 
 
 The process of a chat example in local WhiteNoise network is as follows:
 
-#### Start WhiteNoise Network
+### Start WhiteNoise Network
 First follow the instructions above to start a Bootstrap node and at least 4 relay nodes.
 Copy the Bootstrap node address for later use. 
 In this instruction, the address is `/ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp`.
 
-#### Build Clients
+### Build Clients
 Clone the source code of WhiteNoise Client and enter the directory.
 
 ```shell
@@ -123,7 +123,7 @@ Follow the [instruction](https://github.com/Evanesco-Labs/WhiteNoise-client.rs#b
 Make two new directories and copy the compiled client `./target/release/whitenoise-client` into these two directories.
 In this instruction we name these two directories `client-Alice` and `client-Bob`.
 
-#### Start One Client 
+### Start One Client 
 Enter the `client-Alice` directory.
 Start an chat **Answer** waiting for others to dial with this command, add your nick name in the `--nick` flag:
 
@@ -138,7 +138,7 @@ The following shows the WhiteNoiseID in log:
 [2021-06-07T07:59:21.443Z INFO  whitenoisers::network::node] local whitenoise id:0HejBsyG9SPV5YB91Xf2zXiNGJQagRL3yAq7qtCVum4Pw
 ```
 
-#### Start Another Client and Chat
+### Start Another Client and Chat
 Enter the `client-Bob` directory.
 Start a chat **Caller** and dial the **Answer** with this command, fill in the `-n` flag with *Answer*'s *WhiteNoiseID*:
 
@@ -148,7 +148,7 @@ Start a chat **Caller** and dial the **Answer** with this command, fill in the `
 
 After seeing "Build circuit success!" in log, both chat clients are able to type and chat on the command line!
 
-### Join WhiteNoise Network
+## Join WhiteNoise Network
 In addition to building a complete WhiteNoise network by yourself, substrate-node-template can also join the public WhiteNoise network and as a relay node to provide connection services.
 Public here means that the address of their Bootstrap node is public.
 
@@ -161,7 +161,7 @@ Start a relay node to join this remote testnet:
 ```sh
 ./node-template --noise-bootstrap /ip4/118.190.124.88/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp --noise-port 3332 
 ```
-### RPC
+## RPC
 The WhiteNoise node service share the original RPC service with substrate node template.
 Set the substrate node template RPC port 9933. As an example the following command will gets WhiteNoise network node libp2p PeerIDs through RPC.
 ```shell
