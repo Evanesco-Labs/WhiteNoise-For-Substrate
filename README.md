@@ -99,6 +99,36 @@ Start other nodes in the same way ...
 --noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
 ```
 
+```sh
+./node-template \
+--base-path /tmp/dave \
+  --chain local \
+  --dave \
+  --port 30336 \
+  --ws-port 9948 \
+  --rpc-port 9936 \
+  --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' \
+  --validator \
+  --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp \
+--noise-port 3333 \
+--noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
+```
+
+```sh
+./node-template \
+--base-path /tmp/ellin \
+  --chain local \
+  --ellin \
+  --port 30337 \
+  --ws-port 9949 \
+  --rpc-port 9937 \
+  --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' \
+  --validator \
+  --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp \
+--noise-port 3333 \
+--noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
+```
+
 ## Test Example
 The WhiteNoise Network built with substrate-node-template can provide WhiteNoise privacy network services. 
 [WhiteNoise Clients](https://github.com/Evanesco-Labs/WhiteNoise-client.rs) are able to access this network and build private and secure connection through this network.
@@ -133,20 +163,24 @@ Start an chat **Answer** waiting for others to dial with this command, add your 
 
 Your unique **WhiteNoiseID** is shown in log, this is your "number" for calls. **WhiteNoiseID** keeps the same, if you start chat example in the same directory and using the same key type.
 
-The following shows the WhiteNoiseID in log:
+The following shows the WhiteNoiseID in log, please **REMEMBER IT**, we will use it in the chatting connection built:
 ```verilog
-[2021-06-07T07:59:21.443Z INFO  whitenoisers::network::node] local whitenoise id:0HejBsyG9SPV5YB91Xf2zXiNGJQagRL3yAq7qtCVum4Pw
+2021-06-28T05:39:36.426Z INFO  whitenoisers::network::node] [WhiteNoise] local whitenoise id:07sYJEC6MiSP6PZBuhq6KJUwgHhJNvwVWipySMR8peVJs
 ```
+![img.png](./docs/pics/wn_id.png)
 
 ### Start Another Client and Chat
 Enter the `client-Bob` directory.
 Start a chat **Caller** and dial the **Answer** with this command, fill in the `-n` flag with *Answer*'s *WhiteNoiseID*:
 
 ```shell
-./whitenoise-client chat -b /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp --nick Bob -n 0HejBsyG9SPV5YB91Xf2zXiNGJQagRL3yAq7qtCVum4Pw
+./whitenoise-client chat -b /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp --nick Bob -n  07sYJEC6MiSP6PZBuhq6KJUwgHhJNvwVWipySMR8peVJs
 ```
+By then, we will see the circuit building log in the whitenoise node as following:
+![img.png](./docs/pics/img.png)
 
 After seeing "Build circuit success!" in log, both chat clients are able to type and chat on the command line!
+![img.png](docs/pics/chat.png)
 
 ## Join WhiteNoise Network
 In addition to building a complete WhiteNoise network by yourself, substrate-node-template can also join the public WhiteNoise network and as a relay node to provide connection services.
