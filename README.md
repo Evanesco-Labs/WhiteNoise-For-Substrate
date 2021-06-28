@@ -39,13 +39,16 @@ Simply ignore these two parameters, if you want to run as an original substrate 
 ## Run
 The following shows how to start a WhiteNoise node as a service on a substrate node template. 
 The WhiteNoise node will new an account from the same keypair as the substrate node template. 
+### Prepare
+First, we'd better to build 5 directories, containing boot directory and node1/2/3/4 directory;
 ### Multi-Node Local Network
 These steps show how to start a local WhiteNoise Network and substrate multi-node consensus as the same time, 
 refer to this [substrate tutoial](https://substrate.dev/docs/en/tutorials/start-a-private-network/)
 
-First, start a node as a WhiteNoise network Bootstrap:
+First, start a node as a WhiteNoise network Bootstrap(suggest to using nohup command to start):
 ```sh
-./node-template \
+cd path/to/boot
+nohup ./node-template \
 --base-path /tmp/alice \
   --chain local \
   --alice \
@@ -55,7 +58,7 @@ First, start a node as a WhiteNoise network Bootstrap:
   --node-key 0000000000000000000000000000000000000000000000000000000000000001 \
   --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' \
   --validator \
---noise-port 3331
+--noise-port 3331 &
 ```
 
 Copy the node address in log, for later use. 
@@ -69,7 +72,8 @@ Then, start multiple nodes as WhiteNoise network relay nodes, make sure they use
 
 Start a relay node:
 ```sh
-./node-template \
+cd path/to/node1
+nohup ./node-template \
 --base-path /tmp/bob \
   --chain local \
   --bob \
@@ -80,12 +84,13 @@ Start a relay node:
   --validator \
   --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp \
 --noise-port 3332 \
---noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
+--noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp &
 ```
 
 Start other nodes in the same way ...
 ```sh
-./node-template \
+cd path/to/node2
+nohup ./node-template \
 --base-path /tmp/charlie \
   --chain local \
   --charlie \
@@ -96,7 +101,39 @@ Start other nodes in the same way ...
   --validator \
   --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp \
 --noise-port 3333 \
---noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
+--noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp &
+```
+
+```sh
+cd path/to/node3
+nohup ./node-template \
+--base-path /tmp/dave \
+  --chain local \
+  --dave \
+  --port 30336 \
+  --ws-port 9948 \
+  --rpc-port 9936 \
+  --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' \
+  --validator \
+  --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp \
+--noise-port 3334 \
+--noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp &
+```
+
+```sh
+cd path/to/node4
+nohup ./node-template \
+--base-path /tmp/eve \
+  --chain local \
+  --eve \
+  --port 30337 \
+  --ws-port 9949 \
+  --rpc-port 9937 \
+  --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' \
+  --validator \
+  --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp \
+--noise-port 3335 \
+--noise-bootstrap /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp &
 ```
 
 ```sh
@@ -176,11 +213,16 @@ Start a chat **Caller** and dial the **Answer** with this command, fill in the `
 ```shell
 ./whitenoise-client chat -b /ip4/127.0.0.1/tcp/3331/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp --nick Bob -n  07sYJEC6MiSP6PZBuhq6KJUwgHhJNvwVWipySMR8peVJs
 ```
-By then, we will see the circuit building log in the whitenoise node as following:
+
+By then, using the command *tail -f nohup.out | grep WhiteNoise* in each whitenoise node console, we will see the circuit building log in the whitenoise node as following:
+
 ![img.png](./docs/pics/img.png)
 
 After seeing "Build circuit success!" in log, both chat clients are able to type and chat on the command line!
 ![img.png](docs/pics/chat.png)
+
+At the same time, we will see some transfered log are printed in the hop node(node1 node2 node3 node5):
+![img.png](docs/pics/chatting.png)
 
 ## Join WhiteNoise Network
 In addition to building a complete WhiteNoise network by yourself, substrate-node-template can also join the public WhiteNoise network and as a relay node to provide connection services.
