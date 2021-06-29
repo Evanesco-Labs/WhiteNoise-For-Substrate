@@ -29,7 +29,7 @@ impl NoiseRpcApi for NoiseRpc {
                 num: num,
                 sender: sender,
             };
-            node_request_sender.unbounded_send(whitenoisers::network::whitenoise_behaviour::NodeRequest::GetMainNetsRequest(get_main_nets));
+            node_request_sender.unbounded_send(whitenoisers::network::whitenoise_behaviour::NodeRequest::GetMainNetsRequest(get_main_nets)).unwrap();
             let nodeinfos_res = receiver.await;
             let zzz = nodeinfos_res.unwrap();
             let id_: Vec<String> = zzz.iter().map(|x| x.id.clone()).collect();
