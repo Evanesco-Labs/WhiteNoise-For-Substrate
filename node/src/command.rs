@@ -24,7 +24,6 @@ use node_template_runtime::Block;
 use whitenoisers::sdk::host;
 use whitenoisers::network::node::Node;
 use log::info;
-use libp2p::identity::Keypair;
 use whitenoisers::account::key_types::KeyType;
 
 
@@ -72,15 +71,14 @@ pub fn start_noise_server(cli: &Cli, key_pair: &libp2p::identity::Keypair) -> No
     let port_option = cli.noise_port.clone();
     let bootstrap_option = cli.noise_bootstrap.clone();
     info!("port_option:{:?}", port_option);
-    let mut key_type = "".to_string();
-    match key_pair {
-        libp2p::identity::Keypair::Ed25519(_x) => key_type = "ed25519".to_string(),
-        libp2p::identity::Keypair::Secp256k1(_x) => key_type = "secp256k1".to_string(),
+    let key_type = match key_pair {
+        libp2p::identity::Keypair::Ed25519(_x) => "ed25519".to_string(),
+        libp2p::identity::Keypair::Secp256k1(_x) => "secp256k1".to_string(),
         _ => {
             panic!("keytype not support for whitenoise")
         }
-    }
-    let mut node = host::start(port_option, bootstrap_option, host::RunMode::Server, Some(key_pair.clone()), KeyType::from_str(key_type.as_str()));
+    };
+    let mut node = host::start(port_option, bootstrap_option, host::RunMode::Server, Some(key_pair.clone()), KeyType::from_text_str(key_type.as_str()));
     let node_clo = node.clone();
     async_std::task::spawn(async move {
         loop {
