@@ -8953,7 +8953,7 @@ dependencies = [
 [[package]]
 name = "whitenoisers"
 version = "0.1.0"
-source = "git+https://github.com/Evanesco-Labs/WhiteNoise.rs.git?rev=9ce9239#9ce92390549cce6558504e54b8f27f1fb5cbba48"
+source = "git+https://github.com/Evanesco-Labs/WhiteNoise.rs.git?rev=ad9a802#ad9a80255eed1f02b3ce0d062a6edb0575909496"
 dependencies = [
  "async-std",
  "async-trait",
