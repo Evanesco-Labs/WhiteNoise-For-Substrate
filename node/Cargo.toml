@@ -28,7 +28,7 @@ jsonrpc-core-client = "15.1.0"
 jsonrpc-derive = "15.1.0"
 libp2p = {version = "0.37.1"}
 futures = {version = "0.3"}
-whitenoisers = {git = 'https://github.com/Evanesco-Labs/WhiteNoise.rs.git',rev = "9ce9239"}
+whitenoisers = {git = 'https://github.com/Evanesco-Labs/WhiteNoise.rs.git',rev = "ad9a802"}
 # Substrate dependencies
 frame-benchmarking = {version = '3.1.0', git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-05'}
 frame-benchmarking-cli = {version = '3.0.0', git = 'https://github.com/paritytech/substrate.git', tag = 'monthly-2021-05'}
