@@ -47,7 +47,7 @@ These steps show how to start a local WhiteNoise Network and substrate multi-nod
 this [substrate tutoial](https://substrate.dev/docs/en/tutorials/start-a-private-network/)
 
 We will start a Local WhiteNoise Network with one bootstrap and four nodes. 
-First, we'd better to make 5 new directories, containing boot directory and node1/2/3/4 directory;
+First, we'd better to make 5 new directories, containing boot directory and node1/2/3/4 directory and copy `./target/release/node-template` into the above directories.
 
 Then, start a node as a WhiteNoise network Bootstrap(here we use nohup command to start):
 
