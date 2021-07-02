@@ -2,6 +2,8 @@
 
 A P2P privacy network [WhiteNoise](https://github.com/Evanesco-Labs/WhiteNoise) node template adapted to substrate.
 
+To learn more details please read specifics about [WhiteNoise Protocol](https://github.com/Evanesco-Labs/WhiteNoise.rs/blob/main/docs/whitenoise_spec.md) and WhiteNoise multi-hop connection [Workflows](https://github.com/Evanesco-Labs/WhiteNoise.rs/blob/main/docs/workflows.md).
+
 ## Getting Started
 
 Follow the steps below to get started with the WhiteNoise network node.
